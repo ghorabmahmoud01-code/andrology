@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة التناسلية والذكورة التفاعلية - MCQ Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary: #2b6cb0;
+            --primary-light: #ebf8ff;
+            --bg: #f7fafc;
+            --card-bg: #ffffff;
+            --text: #2d3748;
+            --text-muted: #718096;
+            --success: #38a169;
+            --success-light: #f0fff4;
+            --danger: #e53e3e;
+            --danger-light: #fff5f5;
+            --border: #e2e8f0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            padding: 20px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 30px 25px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            font-size: 24px;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            background: var(--primary-light);
+            padding: 10px 15px;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .bar-outer {
+            flex-grow: 1;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            margin-right: 15px;
+            overflow: hidden;
+        }
+
+        .bar-inner {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+            transition: width 0.4s ease;
+        }
+
+        /* Question Box */
+        .question-text {
+            font-size: 18px;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .options-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option {
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 18px;
+            font-size: 15px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--card-bg);
+        }
+
+        .option:hover {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            font-weight: 600;
+        }
+
+        .option.correct {
+            border-color: var(--success) !important;
+            background-color: var(--success-light) !important;
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .option.wrong {
+            border-color: var(--danger) !important;
+            background-color: var(--danger-light) !important;
+            color: var(--danger);
+        }
+
+        /* Explanation Box */
+        .explanation-box {
+            margin-top: 20px;
+            background: #fffaf0;
+            border-right: 4px solid #dd6b20;
+            border-radius: 8px;
+            padding: 15px;
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: #dd6b20;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #7b341e;
+        }
+
+        /* Action Buttons */
+        .actions {
+            margin-top: 25px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: #2b6cb0;
+        }
+
+        button:disabled {
+            background: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        /* Results Screen */
+        .results-screen {
+            text-align: center;
+            display: none;
+        }
+
+        .results-score {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 20px 0;
+        }
+
+        .feedback-msg {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 25px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>قِسم الجلدية والتناسلية - جامعة الأزهر</h1>
+            <p>منصة الأسئلة التفاعلية للمراجعة الذكية</p>
+        </header>
+
+        <div id="quiz-block">
+            <div class="progress-container">
+                <span class="progress-text" id="progress-text">السؤال 1 من 5</span>
+                <div class="bar-outer">
+                    <div class="bar-inner" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="question-text" id="question-el">جاري تحميل السؤال...</div>
+            
+            <ul class="options-list" id="options-container">
+                </ul>
+
+            <div class="explanation-box" id="explanation-container">
+                <div class="explanation-title">
+                    <i class="fa-regular fa-lightbulb"></i> الشرح واللؤلؤة الطبية (Clinical Pearl):
+                </div>
+                <div class="explanation-text" id="explanation-el"></div>
+            </div>
+
+            <div class="actions">
+                <button id="next-btn" disabled>السؤال التالي <i class="fa-solid fa-arrow-left"></i></button>
+            </div>
+        </div>
+
+        <div id="results-block" class="results-screen">
+            <i class="fa-solid fa-graduation-cap" style="font-size: 60px; color: var(--primary);"></i>
+            <h2 style="margin-top: 15px;">اكتمل الاختبار!</h2>
+            <div class="results-score" id="score-el">0 / 0</div>
+            <p class="feedback-msg" id="feedback-el">مجهود ممتاز، بالتوفيق يا دكتور!</p>
+            <button onclick="location.reload()"><i class="fa-solid fa-rotate-right"></i> إعادة الاختبار</button>
+        </div>
+    </div>
+
+    <script>
+        // Questions extracted from "كتاب قسم الجلدية أزهر.pdf"
+        const quizData = [
+            {
+                question: "كم تبلغ نسبة مساهمة العامل الذكوري (Male factor) في حالات عقم الأزواج بشكل عام؟",
+                options: [
+                    "حوالي 20% فقط",
+                    "حوالي 35% فقط",
+                    "يصل إلى 50% من الحالات (30% بمفرده و20% مشترك مع الزوجة)",
+                    "حوالي 75% من الحالات الكلية"
+                ],
+                correct: 2,
+                explanation: "حسب كتاب القسم، فإن العامل الذكوري يمثل 50% من أسباب عقم الأزواج (حيث يشكل 30% بمفرده كسبب وحيد، و20% يكون مشتركاً ومقترناً بوجود عوامل لدى الزوجة)."
+            },
+            {
+                question: "أي من الخلايا التالية يحفزها هرمون الـ LH لإنتاج التستوستيرون (Testosterone) داخل الخصية؟",
+                options: [
+                    "Sertoli cells",
+                    "Leydig's cells",
+                    "Spermatogonia",
+                    "Primary spermatocytes"
+                ],
+                correct: 1,
+                explanation: "التحكم الهرموني (Hormonal control) يوضح أن هرمون الـ LH يحفز خلايا Leydig's cells لإنتاج الـ Testosterone، بينما يقوم الـ FSH بتحفيز خلايا Sertoli لإنتاج الـ Androgen binding protein (ABP)."
+            },
+            {
+                question: "عند تحليل السائل المنوي (Semen analysis)، أي من التشخيصات التالية يعبر بدقة عن حالة انخفاض حركة الحيوانات المنوية لأقل من 50%؟",
+                options: [
+                    "Oligozoospermia",
+                    "Teratospermia",
+                    "Asthenospermia",
+                    "Azoospermia"
+                ],
+                correct: 2,
+                explanation: "المصطلحات الطبية في الكتاب تفيد بأن: نقص العدد لأقل من 20 مليون هو Oligozoospermia، وزيادة الأشكال المشوهة لأقل من 50% طبيعي هو Teratospermia، أما نقص الحركة لأقل من 50% فيسمى Asthenospermia."
+            },
+            {
+                question: "ما هو الفحص الذي يستخدم لقياس الانتفاخ الليلي للقضيب (N.P.T) للتفريق بين العجز الجنسي العضوي (Organic) والنفسي (Psychogenic ED)؟",
+                options: [
+                    "Penile Duplex",
+                    "Rigiscan",
+                    "Cavernosometry",
+                    "Arteriography"
+                ],
+                correct: 1,
+                explanation: "جهاز الـ Rigiscan يقيس الـ Nocturnal Penile Tumescence (N.P.T)؛ فإذا كانت الانتصابات الليلية طبيعية، فإن هذا يشير فوراً إلى أن سبب المشكلة نفسي (Psychogenic impotence) وليس عضوياً."
+            },
+            {
+                question: "وفقاً للتقسيم الإكلينيكي للسرعة الأولية (Primary Premature Ejaculation)، كم يبلغ الوقت اللاتيني للقذف المهبلي (IVELT)؟",
+                options: [
+                    "أقل من دقيقة واحدة في أكثر من 90% من العلاقات",
+                    "أقل من 3 دقائق",
+                    "بين 5 إلى 7 دقائق",
+                    "أقل من 15 دقيقة فقط"
+                ],
+                correct: 0,
+                explanation: "الـ Primary PE (المستمر مدى الحياة) يبدأ منذ البلوغ، ويتميز طبياً بأن الوقت اللاتيني للقذف (IVELT) يكون أقل من دقيقة واحدة (< 1 minute) في أكثر من 90% من ممارساته الجنسية."
+            }
+        ];
+
+        let currentIdx = 0;
+        let score = 0;
+        let isAnswered = false;
+
+        const quizBlock = document.getElementById('quiz-block');
+        const resultsBlock = document.getElementById('results-block');
+        const progressText = document.getElementById('progress-text');
+        const progressBar = document.getElementById('progress-bar');
+        const questionEl = document.getElementById('question-el');
+        const optionsContainer = document.getElementById('options-container');
+        const explanationContainer = document.getElementById('explanation-container');
+        const explanationEl = document.getElementById('explanation-el');
+        const nextBtn = document.getElementById('next-btn');
+
+        function loadQuestion() {
+            isAnswered = false;
+            nextBtn.disabled = true;
+            explanationContainer.style.display = 'none';
+            optionsContainer.innerHTML = '';
+
+            // Update Progress
+            const currentQ = quizData[currentIdx];
+            progressText.innerText = `السؤال ${currentIdx + 1} من ${quizData.length}`;
+            progressBar.style.width = `${((currentIdx + 1) / quizData.length) * 100}%`;
+
+            // Text
+            questionEl.innerText = currentQ.question;
+
+            // Options
+            currentQ.options.forEach((opt, idx) => {
+                const li = document.createElement('li');
+                li.className = 'option';
+                li.innerHTML = `<span>${opt}</span><i class="status-icon"></i>`;
+                li.addEventListener('click', () => selectOption(li, idx));
+                optionsContainer.appendChild(li);
+            });
+        }
+
+        function selectOption(selectedLi, selectedIdx) {
+            if (isAnswered) return; // Block multiple clicks
+            
+            isAnswered = true;
+            const currentQ = quizData[currentIdx];
+            const optionsArr = optionsContainer.children;
+
+            if (selectedIdx === currentQ.correct) {
+                selectedLi.classList.add('correct');
+                selectedLi.querySelector('.status-icon').className = 'fa-solid fa-circle-check';
+                score++;
+            } else {
+                selectedLi.classList.add('wrong');
+                selectedLi.querySelector('.status-icon').className = 'fa-solid fa-circle-xmark';
+                
+                // Show the correct one
+                optionsArr[currentQ.correct].classList.add('correct');
+                optionsArr[currentQ.correct].querySelector('.status-icon').className = 'fa-solid fa-circle-check';
+            }
+
+            // Show explanation instantly
+            explanationEl.innerText = currentQ.explanation;
+            explanationContainer.style.display = 'block';
+            
+            nextBtn.disabled = false;
+        }
+
+        nextBtn.addEventListener('click', () => {
+            currentIdx++;
+            if (currentIdx < quizData.length) {
+                loadQuestion();
+            } else {
+                showResults();
+            }
+        });
+
+        function showResults() {
+            quizBlock.style.display = 'none';
+            resultsBlock.style.display = 'block';
+            document.getElementById('score-el').innerText = `${score} / ${quizData.length}`;
+            
+            let msg = "";
+            const ratio = score / quizData.length;
+            if (ratio >= 0.8) msg = "ممتاز جداً يا دكتور! جاهز للامتحان بامتياز 🎯";
+            else if (ratio >= 0.6) msg = "مستوى جيد جداً، مراجعة سريعة للكتاب وتضمن الدرجة النهائية إن شاء الله 👏";
+            else msg = "تحتاج لإعادة قراءة جزئية الـ Andrology بتركيز أكبر، بالتوفيق يا بطل! 📚";
+            
+            document.getElementById('feedback-el').innerText = msg;
+        }
+
+        // Init
+        loadQuestion();
+    </script>
+</body>
+</html>
